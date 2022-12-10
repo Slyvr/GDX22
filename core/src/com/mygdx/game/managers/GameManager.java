@@ -1,6 +1,6 @@
 package com.mygdx.game.managers;
 
-import com.mygdx.game.GameInstance;
+import com.mygdx.game.game.GameInstance;
 
 public class GameManager extends Manager {
 
