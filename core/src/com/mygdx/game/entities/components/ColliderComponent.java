@@ -12,6 +12,13 @@ public class ColliderComponent extends Component {
 		this.setName("ColliderComponent");
 	}
 	
+	public ColliderComponent(PositionComponent entityPosition, Rectangle collisionBox, Rectangle scale) {
+		this.entityPosition = entityPosition;
+		this.collisionBox = collisionBox;
+		this.collisionBox.width = this.collisionBox.width*scale.x;
+		this.collisionBox.height = this.collisionBox.height*scale.y;
+	}
+	
 	public boolean isCollision(Rectangle collider) {
 		collisionBox.x = entityPosition.getX();
 		collisionBox.y = entityPosition.getY();
@@ -20,4 +27,21 @@ public class ColliderComponent extends Component {
 		}
 		return false;
 	}
+
+	public Rectangle getCollisionBox() {
+		return collisionBox;
+	}
+
+	public void setCollisionBox(Rectangle collisionBox) {
+		this.collisionBox = collisionBox;
+	}
+
+	public PositionComponent getEntityPosition() {
+		return entityPosition;
+	}
+
+	public void setEntityPosition(PositionComponent entityPosition) {
+		this.entityPosition = entityPosition;
+	}
+	
 }

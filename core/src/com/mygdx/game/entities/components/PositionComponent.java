@@ -8,6 +8,11 @@ public class PositionComponent extends Component{
 	
 	public PositionComponent() {
 		this.setName("PositionComponent");
+		this.position = new Rectangle();
+	}
+	
+	public PositionComponent(PositionComponent copyPosition) {
+		this.position = new Rectangle(copyPosition.getPosition());
 	}
 
 	public Rectangle getPosition() {

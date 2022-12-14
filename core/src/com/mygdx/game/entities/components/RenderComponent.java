@@ -4,13 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.entities.Img;
 import com.mygdx.game.managers.RenderManager;
 
 public class RenderComponent extends Component{
 
-	private Texture texture;
-	private TextureRegion currentFrame;
-	private TextureRegion[] regions;
+	private String texName;
 	private PositionComponent position;
 	private PositionComponent origin;
 	private PositionComponent scale;
@@ -18,64 +17,46 @@ public class RenderComponent extends Component{
 	private float rotation;
 	private boolean flipX;
 	private boolean flipY;
-	private Color color;
+	private String color;
 	
 	public RenderComponent() {
 		this.setName("RenderComponent");
+		this.position = new PositionComponent();
+		this.origin = new PositionComponent();
+		this.scale = new PositionComponent();
+		this.src = new PositionComponent();
+	}
+	
+	public RenderComponent(String texName, float width, float height) {
+		this.setTexName(texName);
+		this.setName(texName);
+		this.position = new PositionComponent();
+		this.origin = new PositionComponent();
+		this.scale = new PositionComponent();
+		this.src = new PositionComponent();
+		
+		this.position.setWidth(width);
+		this.position.setHeight(height);
+		this.scale.setX(1);
+		this.scale.setY(1);
+		this.src.setWidth(width);
+		this.src.setHeight(height);
+	}
+	
+	public RenderComponent(Img img) {
+		this(img.getName(),img.getTex().getWidth(),img.getTex().getHeight());
 	}
 	
 	public void render() {
-		SpriteBatch batch = RenderManager.getBatch();
-		if (color != null) {
-			batch.setColor(color);
-		}
-		
-		if (texture != null) {
-			batch.draw(
-					texture,
-					position.getX(),
-					position.getY(),
-					origin.getX(),
-					origin.getY(),
-					position.getWidth(),
-					position.getHeight(),
-					scale.getX(),
-					scale.getY(),
-					rotation,
-					(int)src.getX(),
-					(int)src.getY(),
-					(int)src.getWidth(),
-					(int)src.getHeight(),
-					flipX,
-					flipY);
-		}
-		
-		//Always reset color back to default
-		batch.setColor(Color.WHITE);
+		RenderManager.render(this);
 	}
-
-	public Texture getTexture() {
-		return texture;
+	
+	public String getTexName() {
+		return texName;
 	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
-	}
-
-	public TextureRegion getCurrentFrame() {
-		return currentFrame;
-	}
-
-	public void setCurrentFrame(TextureRegion currentFrame) {
-		this.currentFrame = currentFrame;
-	}
-
-	public TextureRegion[] getRegions() {
-		return regions;
-	}
-
-	public void setRegions(TextureRegion[] regions) {
-		this.regions = regions;
+	
+	public void setTexName(String texName) {
+		this.texName = texName;
 	}
 	
 	public PositionComponent getPosition() {
@@ -100,6 +81,11 @@ public class RenderComponent extends Component{
 
 	public void setScale(PositionComponent scale) {
 		this.scale = scale;
+	}
+	
+	public void setScale(float scale) {
+		this.scale.setX(scale);
+		this.scale.setY(scale);
 	}
 
 	public PositionComponent getSrc() {
@@ -134,11 +120,11 @@ public class RenderComponent extends Component{
 		this.flipY = flipY;
 	}
 
-	public Color getColor() {
+	public String getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 	

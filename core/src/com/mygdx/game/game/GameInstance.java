@@ -6,6 +6,10 @@ public class GameInstance {
 
 	private ArrayList<Layer> layers;
 	
+	public GameInstance() {
+		layers = new ArrayList<Layer>();
+	}
+	
 	public void render() {
 		for(Layer l : layers) {
 			l.render();

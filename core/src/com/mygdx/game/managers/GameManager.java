@@ -6,7 +6,9 @@ public class GameManager extends Manager {
 
 	private static GameInstance instance;
 
-	
+	public GameManager() {
+		instance = new GameInstance();
+	}
 	
 	public static GameInstance getInstance() {
 		return instance;

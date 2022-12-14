@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.entities.components.RenderComponent;
 import com.mygdx.game.managers.AudioManager;
 import com.mygdx.game.managers.GameManager;
 import com.mygdx.game.managers.MenuManager;
@@ -17,7 +18,10 @@ public class GDX22 extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		renderManager.setBatch(new SpriteBatch());
+		renderManager = new RenderManager();
+		gameManager = new GameManager();
+		audioManager = new AudioManager();
+		menuManager = new MenuManager();
 	}
 
 	@Override
@@ -25,13 +29,13 @@ public class GDX22 extends ApplicationAdapter {
 		ScreenUtils.clear(0, 0, 0, 1);
 		renderManager.getBatch().begin();
 		
-			gameManager.getInstance().render();
-			menuManager.getCurrentMenu().render();
+			if (gameManager.getInstance() != null) gameManager.getInstance().render();
+			if (menuManager.getCurrentMenu() != null) menuManager.getCurrentMenu().render();
 		
 		renderManager.getBatch().end();
 		
-		gameManager.getInstance().update();
-		menuManager.getCurrentMenu().update();
+		if (gameManager.getInstance() != null) gameManager.getInstance().update();
+		if (menuManager.getCurrentMenu() != null) menuManager.getCurrentMenu().update();
 	}
 	
 	@Override

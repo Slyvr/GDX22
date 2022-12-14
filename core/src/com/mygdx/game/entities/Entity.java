@@ -6,7 +6,12 @@ import com.mygdx.game.entities.components.Component;
 
 public class Entity {
 
-	ArrayList<Component> components;
+	private String name;
+	private ArrayList<Component> components;
+	
+	public Entity() {
+		components = new ArrayList<Component>();
+	}
 	
 	public void render() {
 		for(Component c : components) {
@@ -33,5 +38,17 @@ public class Entity {
 	
 	public void removeComponent(Component component) {
 		components.remove(component);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ArrayList<Component> getComponents() {
+		return components;
 	}
 }

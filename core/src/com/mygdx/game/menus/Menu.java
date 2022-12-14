@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.mygdx.game.entities.Entity;
 
-public class Menu {
+public class Menu extends Entity{
 
 	private String name;
 	private int id;
@@ -21,7 +21,9 @@ public class Menu {
 	}
 	
 	public void update() {
-		
+		for(Entity e : entities) {
+			e.update();
+		}
 	}
 
 	public String getName() {
