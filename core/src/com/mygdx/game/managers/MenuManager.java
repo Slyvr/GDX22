@@ -2,8 +2,7 @@ package com.mygdx.game.managers;
 
 import java.util.ArrayList;
 
-import com.mygdx.game.menus.MainMenu;
-import com.mygdx.game.menus.Menu;
+import com.mygdx.game.menus.*;
 
 public class MenuManager extends Manager {
 
@@ -17,9 +16,17 @@ public class MenuManager extends Manager {
 	public static void load() {
 		menus = new ArrayList<Menu>();
 		
+		menus.add(new EndGameMenu());
 		menus.add(new MainMenu());
 		
-		currentMenu = menus.get(0);
+		currentMenu = menus.get(1);
+	}
+	
+	public static Menu getMenuByName(String name) {
+		for(Menu m : menus) {
+			if (m.getName().equals(name)) return m;
+		}
+		return null;
 	}
 	
 	public static Menu getCurrentMenu() {
@@ -29,6 +36,5 @@ public class MenuManager extends Manager {
 	public static void setCurrentMenu(Menu currentMenu) {
 		MenuManager.currentMenu = currentMenu;
 	}
-	
 	
 }

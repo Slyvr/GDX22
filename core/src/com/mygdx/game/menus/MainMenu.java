@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.components.ButtonComponent;
 import com.mygdx.game.entities.components.ColliderComponent;
+import com.mygdx.game.entities.components.MenuButtonComponent;
 import com.mygdx.game.entities.components.RenderComponent;
 import com.mygdx.game.entities.components.TextComponent;
+import com.mygdx.game.managers.MenuManager;
 import com.mygdx.game.managers.RenderManager;
 
 public class MainMenu extends Menu{
@@ -56,13 +57,14 @@ public class MainMenu extends Menu{
 			backButtonRender.setScale(2);
 			backButtonRender.setOwner(backButton);
 			backButton.addComponent(backButtonRender);
-		ButtonComponent backButtonComponent
-			= new ButtonComponent(
+		MenuButtonComponent backButtonComponent
+			= new MenuButtonComponent(
 				backButtonRender.getPosition(),
 				new Rectangle(backButtonRender.getPosition().getPosition()),
 				backButtonRender.getScale().getPosition()
 				);
 			backButtonComponent.setOwner(backButton);
+			backButtonComponent.setDestinationMenu(MenuManager.getMenuByName("EndGameMenu"));
 			backButton.addComponent(backButtonComponent);
 		entities.add(backButton);
 		

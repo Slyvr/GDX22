@@ -25,6 +25,10 @@ public class Menu extends Entity{
 			e.update();
 		}
 	}
+	
+	public void reset() {
+		
+	}
 
 	public String getName() {
 		return name;
