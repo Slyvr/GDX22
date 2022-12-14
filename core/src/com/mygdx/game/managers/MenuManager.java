@@ -16,10 +16,15 @@ public class MenuManager extends Manager {
 	public static void load() {
 		menus = new ArrayList<Menu>();
 		
-		menus.add(new EndGameMenu());
 		menus.add(new MainMenu());
+		menus.add(new EndGameMenu());
+		menus.add(new GameMenu());
 		
-		currentMenu = menus.get(1);
+		currentMenu = menus.get(0);
+		
+		for(Menu m : menus) {
+			m.load();
+		}
 	}
 	
 	public static Menu getMenuByName(String name) {

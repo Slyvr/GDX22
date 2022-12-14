@@ -3,12 +3,12 @@ package com.mygdx.game.menus;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.components.ColliderComponent;
-import com.mygdx.game.entities.components.MenuButtonComponent;
-import com.mygdx.game.entities.components.RenderComponent;
-import com.mygdx.game.entities.components.TextComponent;
+import com.mygdx.game.entities.Rect;
+import com.mygdx.game.entities.components.MenuButtonCollider;
+import com.mygdx.game.entities.components.PlayMenuButton;
+import com.mygdx.game.entities.components.Render;
+import com.mygdx.game.entities.components.Text;
 import com.mygdx.game.managers.MenuManager;
 import com.mygdx.game.managers.RenderManager;
 
@@ -16,19 +16,18 @@ public class MainMenu extends Menu{
 
 	public MainMenu() {
 		this.setName("MainMenu");
-		load();
 	}
 	
-	private void load() {
+	public void load() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Entity bg = new Entity();
 		bg.setName("bg");
-		bg.addComponent(new RenderComponent(RenderManager.getRenderByName("BG")));
+		bg.addComponent(new Render(RenderManager.getRenderByName("BG")));
 		entities.add(bg);
 		
 		Entity title = new Entity();
 		title.setName("title");
-		TextComponent titleText = new TextComponent();
+		Text titleText = new Text();
 			titleText.setFontName("Berlin32");
 			titleText.setName("titleText");
 			titleText.setText("Santa's Workshop");
@@ -41,36 +40,47 @@ public class MainMenu extends Menu{
 		
 		Entity playButton = new Entity();
 		playButton.setName("playButton");
-		RenderComponent playButtonRender = new RenderComponent(RenderManager.getRenderByName("playbutton"));
+		Render playButtonRender = new Render(RenderManager.getRenderByName("playbutton"));
 			playButtonRender.getPosition().setX(100);
 			playButtonRender.getPosition().setY(Gdx.graphics.getHeight()/2);
 			playButtonRender.setScale(2);
 			playButtonRender.setOwner(playButton);
-		playButton.addComponent(playButtonRender);
+			playButton.addComponent(playButtonRender);
+			PlayMenuButton playButtonComponent
+			= new PlayMenuButton(
+					playButtonRender.getPosition(),
+				new Rect(playButtonRender.getPosition().getPosition()),
+				playButtonRender.getScale().getPosition()
+				);
+			playButtonComponent.setOwner(playButton);
+			playButtonComponent.setDestinationMenu(MenuManager.getMenuByName("GameMenu"));
+			playButtonComponent.setMouseAction(true);
+			playButton.addComponent(playButtonComponent);
 		entities.add(playButton);
 		
 		Entity backButton = new Entity();
 		backButton.setName("backButton");
-		RenderComponent backButtonRender = new RenderComponent(RenderManager.getRenderByName("backbutton"));
+		Render backButtonRender = new Render(RenderManager.getRenderByName("backbutton"));
 			backButtonRender.getPosition().setX(100);
 			backButtonRender.getPosition().setY(Gdx.graphics.getHeight()/2 - backButtonRender.getPosition().getHeight()*3);
 			backButtonRender.setScale(2);
 			backButtonRender.setOwner(backButton);
 			backButton.addComponent(backButtonRender);
-		MenuButtonComponent backButtonComponent
-			= new MenuButtonComponent(
+		MenuButtonCollider backButtonComponent
+			= new MenuButtonCollider(
 				backButtonRender.getPosition(),
-				new Rectangle(backButtonRender.getPosition().getPosition()),
+				new Rect(backButtonRender.getPosition().getPosition()),
 				backButtonRender.getScale().getPosition()
 				);
 			backButtonComponent.setOwner(backButton);
 			backButtonComponent.setDestinationMenu(MenuManager.getMenuByName("EndGameMenu"));
+			backButtonComponent.setMouseAction(true);
 			backButton.addComponent(backButtonComponent);
 		entities.add(backButton);
 		
 		Entity credits = new Entity();
 		credits.setName("credits");
-		TextComponent creditText = new TextComponent();
+		Text creditText = new Text();
 			creditText.setFontName("Arial14");
 			creditText.setName("creditText");
 			creditText.setText("Created by Matthew Schrum\n"

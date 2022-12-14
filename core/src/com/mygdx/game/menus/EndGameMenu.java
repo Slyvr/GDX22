@@ -3,11 +3,10 @@ package com.mygdx.game.menus;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.components.MenuButtonComponent;
-import com.mygdx.game.entities.components.RenderComponent;
-import com.mygdx.game.entities.components.TextComponent;
+import com.mygdx.game.entities.components.Render;
+import com.mygdx.game.entities.components.Text;
+import com.mygdx.game.managers.MenuManager;
 import com.mygdx.game.managers.RenderManager;
 
 public class EndGameMenu extends Menu{
@@ -18,7 +17,6 @@ public class EndGameMenu extends Menu{
 	public EndGameMenu() {
 		this.timeLength = 2000;
 		this.setName("EndGameMenu");
-		load();
 		timeEnd = System.currentTimeMillis()+timeLength;
 	}
 	
@@ -32,16 +30,16 @@ public class EndGameMenu extends Menu{
 		this.timeEnd = System.currentTimeMillis()+timeLength;
 	}
 	
-	private void load() {
+	public void load() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Entity bg = new Entity();
 		bg.setName("bg");
-		bg.addComponent(new RenderComponent(RenderManager.getRenderByName("BG")));
+		bg.addComponent(new Render(RenderManager.getRenderByName("BG")));
 		entities.add(bg);
 		
 		Entity title = new Entity();
 		title.setName("title");
-		TextComponent titleText = new TextComponent();
+		Text titleText = new Text();
 			titleText.setFontName("Berlin32");
 			titleText.setName("titleText");
 			titleText.setText("Thanks for Playing!");
@@ -52,19 +50,7 @@ public class EndGameMenu extends Menu{
 		title.addComponent(titleText);
 		entities.add(title);
 		
-		Entity credits = new Entity();
-		credits.setName("credits");
-		TextComponent creditText = new TextComponent();
-			creditText.setFontName("Arial14");
-			creditText.setName("creditText");
-			creditText.setText("Created by Matthew Schrum\n"
-					+ "Art by: \n"
-					+ " someone");
-			creditText.getPosition().setX(100);
-			creditText.getPosition().setY(100);
-			creditText.setColor("WHITE");
-			creditText.setOwner(credits);
-		credits.addComponent(creditText);
+		Entity credits = MenuManager.getMenuByName("MainMenu").getEntityByName("credits");
 		entities.add(credits);
 		
 		this.setEntities(entities);

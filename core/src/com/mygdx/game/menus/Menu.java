@@ -29,6 +29,10 @@ public class Menu extends Entity{
 	public void reset() {
 		
 	}
+	
+	public void load() {
+		
+	}
 
 	public String getName() {
 		return name;
@@ -60,6 +64,13 @@ public class Menu extends Entity{
 
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
+	}
+	
+	public Entity getEntityByName(String name) {
+		for(Entity e : entities) {
+			if (e.getName().equals(name)) return e;
+		}
+		return null;
 	}
 
 	public ArrayList<Menu> getSubMenus() {

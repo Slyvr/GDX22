@@ -11,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.entities.Clr;
 import com.mygdx.game.entities.Fnt;
 import com.mygdx.game.entities.Img;
-import com.mygdx.game.entities.components.RenderComponent;
-import com.mygdx.game.entities.components.TextComponent;
+import com.mygdx.game.entities.components.Render;
+import com.mygdx.game.entities.components.Text;
 
 public class RenderManager extends Manager{
 
@@ -27,7 +27,7 @@ public class RenderManager extends Manager{
 		load();
 	}
 	
-	public static void render(RenderComponent r) {
+	public static void render(Render r) {
 		if (r.getColor() != null) {
 			batch.setColor(getColor(r.getColor()));
 		}
@@ -53,7 +53,7 @@ public class RenderManager extends Manager{
 		batch.setColor(Color.WHITE);
 	}
 	
-	public static void render(TextComponent t) {
+	public static void render(Text t) {
 		BitmapFont font = getFontByName(t.getFontName()).getFont();
 		
 		if (t.getColor() != null) {

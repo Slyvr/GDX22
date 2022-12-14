@@ -2,15 +2,22 @@ package com.mygdx.game.entities;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Json.Serializable;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.entities.components.Component;
 
-public class Entity {
+public class Entity implements Serializable{
 
 	private String name;
 	private ArrayList<Component> components;
 	
 	public Entity() {
 		components = new ArrayList<Component>();
+	}
+	
+	public Entity(Entity copy) {
+		components = (ArrayList<Component>) copy.getComponents().clone();
 	}
 	
 	public void render() {
@@ -50,5 +57,15 @@ public class Entity {
 
 	public ArrayList<Component> getComponents() {
 		return components;
+	}
+
+	@Override
+	public void write(Json json) {
+		
+	}
+
+	@Override
+	public void read(Json json, JsonValue jsonData) {
+		
 	}
 }
