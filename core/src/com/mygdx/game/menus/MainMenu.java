@@ -46,7 +46,7 @@ public class MainMenu extends Menu{
 			playButtonRender.setScale(2);
 			playButtonRender.setOwner(playButton);
 			playButton.addComponent(playButtonRender);
-			PlayMenuButton playButtonComponent
+		PlayMenuButton playButtonComponent
 			= new PlayMenuButton(
 					playButtonRender.getPosition(),
 				new Rect(playButtonRender.getPosition().getPosition()),
